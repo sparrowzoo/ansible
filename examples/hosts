@@ -25,7 +25,7 @@
 
 ## issues https://github.com/ansible/ansible/issues/19584
 ##https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#hosts-and-groups
-[webservers]
+[sdevice]
 10.30.60.146 ansible_user=root
 
 # If you have multiple hosts following a pattern you can specify

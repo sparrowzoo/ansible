@@ -1,0 +1,33 @@
+- hosts: "{{ inventory_host }}"
+  remote_user: root
+  vars:
+    src_file: "{{ app_file }}"
+    dest_file: "{{ app_file_dest_path }}"
+  tasks:
+  - name: /tmp/ansible/ directory exists with 0777 permission
+    file: "path=/tmp/ansible/ owner=root group=root mode=0777 recurse=no state=directory"
+    sudo: "yes"
+
+  - name: copy application jar
+    copy:
+      src: "{{ src_file }}"
+      dest: "{{ app_file_dest_path }}"
+      owner: "root"
+      group: "root"
+      mode: "0644"
+  - name: Install spring boot starter script
+    copy:
+      src: "spring_boot_starter.sh"
+      dest: "~/jenkins"
+      owner: "root"
+      group: "root"
+      mode: "0755"
+
+  - name: spring_boot_starter
+    command: "./spring_boot_starter.sh {{ app_file_dest_path }}"
+    args:
+      chdir:  "~/jenkins"
+#  - name: restart tomcat
+#    service:
+#      name: tomcat__vvvv
+#      state: restarted
